@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Vendor - Modern Digital Marketplace</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 🌙 Dark Mode Overlay -->
+  <div class="dark-mode-overlay"></div>
+
+  <!-- 🔷 HEADER -->
+  <header class="header glass">
+    <div class="header-content">
+      <div class="logo">
+        <i class="fa-solid fa-shop"></i> 
+        <span>Smart Vendor</span>
+      </div>
+      
+      <nav class="nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html" class="login-btn">Login</a>
+      </nav>
+
+      <!-- 🌙 Dark Mode Toggle -->
+      <div class="theme-toggle">
+        <input type="checkbox" id="darkModeToggle" class="theme-toggle-input">
+        <label for="darkModeToggle" class="theme-toggle-label">
+          <i class="fa-solid fa-sun"></i>
+          <i class="fa-solid fa-moon"></i>
+        </label>
+      </div>
+
+      <!-- 🌐 Language Selector -->
+      <div class="language-selector">
+        <select id="languageSelect">
+          <option value="en">🇺🇸 EN</option>
+          <option value="hi">🇮🇳 हिंदी</option>
+          <option value="gu">🇮🇳 ગુજરાતી</option>
+        </select>
+      </div>
+
+      <!-- 🛒 Smart Cart Icon -->
+      <div class="cart-icon" id="cartIcon">
+        <i class="fa-solid fa-shopping-cart"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 🛒 Smart Cart Sidebar -->
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3><i class="fa-solid fa-shopping-cart"></i> Smart Cart</h3>
+      <button class="close-cart" id="closeCart">
+        <i class="fa-solid fa-times"></i>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- Cart items will be dynamically added here -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cartTotal">₹0</span>
+      </div>
+      <button class="btn btn-primary checkout-btn">
+        <i class="fa-solid fa-credit-card"></i> Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- ✅ MAIN CONTENT -->
+  <main>
+    <!-- 🔶 HERO SECTION -->
+    <section class="hero">
+      <div class="hero-background">
+        <div class="floating-shapes">
+          <div class="shape shape-1"></div>
+          <div class="shape shape-2"></div>
+          <div class="shape shape-3"></div>
+        </div>
+      </div>
+      
+      <div class="hero-content">
+        <div class="hero-text glass">
+          <h1 class="hero-title">
+            <span class="gradient-text">Smart Vendor</span>
+            <br>Digital Marketplace
+          </h1>
+          <p class="hero-subtitle">
+            Transform your local business into a digital powerhouse. 
+            Connect with customers, manage inventory, and grow your sales with our intelligent vending platform.
+          </p>
+          <!-- 🔍 Modern Search Bar with Filters -->
+          <form class="search-bar glass animate-fade-in-up" id="searchBar">
+            <input type="text" id="searchInput" placeholder="Search vendors or products..." aria-label="Search" />
+            <select id="categoryFilter" aria-label="Category">
+              <option value="">All Categories</option>
+              <option value="grocery">Grocery</option>
+              <option value="fashion">Fashion</option>
+              <option value="electronics">Electronics</option>
+              <option value="food">Food</option>
+              <option value="other">Other</option>
+            </select>
+            <select id="priceFilter" aria-label="Price">
+              <option value="">Any Price</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+            <select id="ratingFilter" aria-label="Rating">
+              <option value="">Any Rating</option>
+              <option value="5">★★★★★</option>
+              <option value="4">★★★★☆ & up</option>
+              <option value="3">★★★☆☆ & up</option>
+              <option value="2">★★☆☆☆ & up</option>
+              <option value="1">★☆☆☆☆ & up</option>
+            </select>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+          </form>
+          
+          <div class="hero-stats">
+            <div class="stat-item">
+              <h3 data-target="500">500+</h3>
+              <p>Active Vendors</p>
+            </div>
+            <div class="stat-item">
+              <h3 data-target="10000">10K+</h3>
+              <p>Products Listed</p>
+            </div>
+            <div class="stat-item">
+              <h3 data-target="5">4.9★</h3>
+              <p>User Rating</p>
+            </div>
+          </div>
+
+          <div class="hero-buttons">
+            <a href="products.html" class="btn btn-primary glow">
+              <i class="fa-solid fa-store"></i> Explore Vendors
+            </a>
+            <a href="login.html" class="btn btn-secondary">
+              <i class="fa-solid fa-user-plus"></i> Join as Vendor
+            </a>
+          </div>
+        </div>
+        
+        <div class="hero-visual">
+          <div class="hero-image glass">
+            <img src="vendor.png" alt="Smart Vendor Platform" loading="lazy" decoding="async" />
+            <div class="floating-card card-1">
+              <i class="fa-solid fa-qrcode"></i>
+              <span>QR Menu</span>
+            </div>
+            <div class="floating-card card-2">
+              <i class="fa-solid fa-clock"></i>
+              <span>Real-time</span>
+            </div>
+            <div class="floating-card card-3">
+              <i class="fa-solid fa-mobile-alt"></i>
+              <span>Mobile First</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 💡 FEATURES SECTION -->
+    <section class="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>Smart Features</h2>
+          <p>Everything you need to run a successful digital business</p>
+        </div>
+        
+        <div class="features-grid">
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-qrcode"></i>
+            </div>
+            <h3>Smart QR Menu</h3>
+            <p>Upload your menu and let customers scan to view. No physical menus needed!</p>
+          </div>
+          
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <h3>Vendor Slot Booking</h3>
+            <p>Reserve your stall in advance with our real-time booking system.</p>
+          </div>
+          
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <h3>Live Inventory</h3>
+            <p>Track stock levels in real-time and get alerts when running low.</p>
+          </div>
+          
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <h3>Customer Feedback</h3>
+            <p>Collect ratings and reviews to improve your business.</p>
+          </div>
+          
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-mobile-alt"></i>
+            </div>
+            <h3>Mobile Optimized</h3>
+            <p>Works perfectly on all devices with responsive design.</p>
+          </div>
+          
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-shield-alt"></i>
+            </div>
+            <h3>Secure Payments</h3>
+            <p>Multiple payment options with bank-grade security.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🏪 VENDOR SHOWCASE -->
+    <section class="vendor-showcase">
+      <div class="container">
+        <div class="section-header">
+          <h2>Featured Vendors</h2>
+          <p>Discover amazing local businesses</p>
+        </div>
+        
+        <div class="vendors-grid" id="vendorsGrid">
+          <!-- Vendors will be dynamically loaded here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 🗺️ LIVE VENDOR MAP -->
+    <section class="vendor-map-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Live Vendor Map</h2>
+          <p>Find vendors near you in real-time</p>
+        </div>
+        
+        <div class="map-container glass">
+          <div class="map-controls">
+            <button class="map-btn active" onclick="filterVendors('all')">
+              <i class="fa-solid fa-store"></i> All Vendors
+            </button>
+            <button class="map-btn" onclick="filterVendors('food')">
+              <i class="fa-solid fa-utensils"></i> Food
+            </button>
+            <button class="map-btn" onclick="filterVendors('grocery')">
+              <i class="fa-solid fa-shopping-basket"></i> Grocery
+            </button>
+            <button class="map-btn" onclick="filterVendors('electronics')">
+              <i class="fa-solid fa-mobile-alt"></i> Electronics
+            </button>
+          </div>
+          
+          <div class="map-view">
+            <div class="map-placeholder">
+              <i class="fa-solid fa-map-marked-alt"></i>
+              <h3>Interactive Vendor Map</h3>
+              <p>Real-time location of vendors in your area</p>
+              <div class="vendor-pins">
+                <div class="vendor-pin" style="top: 30%; left: 25%;">
+                  <i class="fa-solid fa-store"></i>
+                  <span class="pin-label">Fresh Grocery</span>
+                </div>
+                <div class="vendor-pin" style="top: 45%; left: 60%;">
+                  <i class="fa-solid fa-utensils"></i>
+                  <span class="pin-label">Spice Corner</span>
+                </div>
+                <div class="vendor-pin" style="top: 60%; left: 40%;">
+                  <i class="fa-solid fa-mobile-alt"></i>
+                  <span class="pin-label">Tech Gadgets</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="nearby-vendors">
+            <h3>Nearby Vendors</h3>
+            <div class="vendor-list" id="nearbyVendors">
+              <!-- Nearby vendors will be loaded here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 💝 WISHLIST SECTION -->
+    <section class="wishlist-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Your Wishlist</h2>
+          <p>Save your favorite vendors and products</p>
+        </div>
+        
+        <div class="wishlist-container glass">
+          <div class="wishlist-tabs">
+            <button class="wishlist-tab active" onclick="showWishlist('vendors')">
+              <i class="fa-solid fa-store"></i> Favorite Vendors
+            </button>
+            <button class="wishlist-tab" onclick="showWishlist('products')">
+              <i class="fa-solid fa-heart"></i> Wishlisted Products
+            </button>
+          </div>
+          
+          <div class="wishlist-content" id="wishlistContent">
+            <!-- Wishlist items will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⭐ TESTIMONIALS -->
+    <section class="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <h2>What Our Users Say</h2>
+          <p>Real feedback from real vendors</p>
+        </div>
+        
+        <div class="testimonials-grid">
+          <div class="testimonial-card glass">
+            <div class="testimonial-content">
+              <p>"Smart Vendor helped me digitize my small shop. Now I get orders from customers I never knew existed!"</p>
+            </div>
+            <div class="testimonial-author">
+              <img src="https://via.placeholder.com/50" alt="Rajesh Patel">
+              <div>
+                <h4>Rajesh Patel</h4>
+                <p>Grocery Store Owner</p>
+                <div class="stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="testimonial-card glass">
+            <div class="testimonial-content">
+              <p>"The QR menu feature is brilliant! My customers love the convenience and my sales have increased by 40%."</p>
+            </div>
+            <div class="testimonial-author">
+              <img src="https://via.placeholder.com/50" alt="Priya Sharma">
+              <div>
+                <h4>Priya Sharma</h4>
+                <p>Restaurant Owner</p>
+                <div class="stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="testimonial-card glass">
+            <div class="testimonial-content">
+              <p>"Easy to use, great support team, and the inventory management saves me hours every week."</p>
+            </div>
+            <div class="testimonial-author">
+              <img src="https://via.placeholder.com/50" alt="Amit Kumar">
+              <div>
+                <h4>Amit Kumar</h4>
+                <p>Electronics Shop</p>
+                <div class="stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📧 NEWSLETTER -->
+    <section class="newsletter">
+      <div class="container">
+        <div class="newsletter-content glass">
+          <h2>Stay Updated</h2>
+          <p>Get the latest features and tips delivered to your inbox</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit" class="btn btn-primary">
+              <i class="fa-solid fa-paper-plane"></i> Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 📞 FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3><i class="fa-solid fa-shop"></i> Smart Vendor</h3>
+          <p>Empowering local businesses with digital solutions for the modern marketplace.</p>
+          <div class="social-links">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Features</h4>
+          <ul>
+            <li><a href="#">QR Menu</a></li>
+            <li><a href="#">Slot Booking</a></li>
+            <li><a href="#">Inventory Management</a></li>
+            <li><a href="#">Analytics</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Contact Support</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Smart Vendor. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 💬 Floating WhatsApp Button -->
+  <div class="floating-whatsapp">
+    <a href="https://wa.me/1234567890" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <!-- 📱 Mobile Bottom Navigation -->
+  <div class="mobile-bottom-nav" id="mobileBottomNav">
+    <a href="index.html" class="mbnav-item" aria-label="Home">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="products.html" class="mbnav-item" aria-label="Shop">
+      <i class="fa-solid fa-store"></i>
+      <span>Shop</span>
+    </a>
+    <button class="mbnav-item" id="mbWishlistBtn" aria-label="Wishlist">
+      <i class="fa-solid fa-heart"></i>
+      <span>Wishlist</span>
+    </button>
+    <button class="mbnav-item" id="mbCartBtn" aria-label="Cart">
+      <i class="fa-solid fa-shopping-cart"></i>
+      <span>Cart</span>
+    </button>
+    <a href="login.html" class="mbnav-item" aria-label="Account">
+      <i class="fa-solid fa-user"></i>
+      <span>Account</span>
+    </a>
+  </div>
+
+  <!-- 🔥 SCRIPTS -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us - Smart Vendor</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Contact Page Specific Styles */
+    .contact-hero {
+      padding: 120px var(--spacing-md) var(--spacing-xl);
+      text-align: center;
+      background: var(--bg-secondary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient-primary);
+      opacity: 0.05;
+    }
+
+    .contact-hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-sm);
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .contact-hero p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto var(--spacing-lg);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-xl);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .contact-info {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-xl);
+    }
+
+    .contact-info h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-lg);
+      color: var(--text-primary);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+      padding: var(--spacing-md);
+      background: var(--bg-primary);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+    }
+
+    .contact-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .contact-details h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-xs);
+      color: var(--text-primary);
+    }
+
+    .contact-details p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .contact-form {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-xl);
+    }
+
+    .contact-form h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-lg);
+      color: var(--text-primary);
+    }
+
+    .form-group {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: var(--spacing-xs);
+      font-weight: 500;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: var(--spacing-sm);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      background: var(--glass-bg);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      transition: all var(--transition-fast);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: var(--spacing-sm);
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-xs);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .map-section {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .map-section h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-md);
+      color: var(--text-primary);
+      text-align: center;
+    }
+
+    .map-container {
+      width: 100%;
+      height: 400px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .map-placeholder {
+      text-align: center;
+      padding: var(--spacing-lg);
+    }
+
+    .map-placeholder i {
+      font-size: 3rem;
+      margin-bottom: var(--spacing-sm);
+      color: var(--primary-color);
+    }
+
+    .faq-section {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-xl);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .faq-section h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-lg);
+      color: var(--text-primary);
+      text-align: center;
+    }
+
+    .faq-item {
+      margin-bottom: var(--spacing-md);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: var(--spacing-md);
+      background: var(--bg-primary);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all var(--transition-fast);
+    }
+
+    .faq-question:hover {
+      background: var(--glass-bg);
+    }
+
+    .faq-question h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .faq-question i {
+      color: var(--primary-color);
+      transition: transform var(--transition-fast);
+    }
+
+    .faq-answer {
+      padding: 0 var(--spacing-md);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition-normal), opacity var(--transition-normal), padding var(--transition-normal);
+      background: var(--glass-bg);
+      opacity: 0;
+    }
+
+    .faq-answer.active {
+      padding: var(--spacing-md);
+      max-height: 200px;
+      opacity: 1;
+    }
+
+    .faq-answer p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .contact-hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+      }
+
+      .map-container {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 🌙 Dark Mode Overlay -->
+  <div class="dark-mode-overlay"></div>
+
+  <!-- 🔷 HEADER -->
+  <header class="header glass">
+    <div class="header-content">
+      <div class="logo">
+        <i class="fa-solid fa-shop"></i> 
+        <span>Smart Vendor</span>
+      </div>
+      
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="active">Contact</a>
+        <a href="login.html" class="login-btn">Login</a>
+      </nav>
+
+      <!-- 🌙 Dark Mode Toggle -->
+      <div class="theme-toggle">
+        <input type="checkbox" id="darkModeToggle" class="theme-toggle-input">
+        <label for="darkModeToggle" class="theme-toggle-label">
+          <i class="fa-solid fa-sun"></i>
+          <i class="fa-solid fa-moon"></i>
+        </label>
+      </div>
+
+      <!-- 🌐 Language Selector -->
+      <div class="language-selector">
+        <select id="languageSelect">
+          <option value="en">🇺🇸 EN</option>
+          <option value="hi">🇮🇳 हिंदी</option>
+          <option value="gu">🇮🇳 ગુજરાતી</option>
+        </select>
+      </div>
+
+      <!-- 🛒 Smart Cart Icon -->
+      <div class="cart-icon" id="cartIcon">
+        <i class="fa-solid fa-shopping-cart"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 🛒 Smart Cart Sidebar -->
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3><i class="fa-solid fa-shopping-cart"></i> Smart Cart</h3>
+      <button class="close-cart" id="closeCart">
+        <i class="fa-solid fa-times"></i>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- Cart items will be dynamically added here -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cartTotal">₹0</span>
+      </div>
+      <button class="btn btn-primary checkout-btn">
+        <i class="fa-solid fa-credit-card"></i> Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- ✅ MAIN CONTENT -->
+  <main>
+    <!-- 🔶 CONTACT HERO -->
+    <section class="contact-hero">
+      <div class="contact-hero-content">
+        <h1>Get in Touch</h1>
+        <p>Have questions, feedback, or need support? We'd love to hear from you. Our team is here to help you succeed.</p>
+      </div>
+    </section>
+
+    <!-- 📞 CONTACT GRID -->
+    <section class="container">
+      <div class="contact-grid">
+        <!-- 📞 Contact Info -->
+        <div class="contact-info">
+          <h2><i class="fa-solid fa-address-book"></i> Contact Information</h2>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fa-solid fa-map-marker-alt"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Address</h3>
+              <p>123 Smart Street, Tech Park<br>Surat, Gujarat 395001<br>India</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fa-solid fa-phone"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Phone</h3>
+              <p>+91 98765 43210<br>+91 98765 43211</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Email</h3>
+              <p>hello@smartvendor.com<br>support@smartvendor.com</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Business Hours</h3>
+              <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM<br>Sunday: Closed</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 📝 Contact Form -->
+        <div class="contact-form">
+          <h2><i class="fa-solid fa-paper-plane"></i> Send us a Message</h2>
+          
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" class="form-input" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" class="form-input" placeholder="Enter your email address" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" class="form-input" placeholder="Enter your phone number">
+            </div>
+            
+            <div class="form-group">
+              <label for="subject">Subject *</label>
+              <select id="subject" class="form-input" required>
+                <option value="">Select a subject</option>
+                <option value="general">General Inquiry</option>
+                <option value="support">Technical Support</option>
+                <option value="billing">Billing Question</option>
+                <option value="partnership">Partnership</option>
+                <option value="feedback">Feedback</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Message *</label>
+              <textarea id="message" class="form-input form-textarea" placeholder="Tell us how we can help you..." required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+              <i class="fa-solid fa-paper-plane"></i>
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🗺️ MAP SECTION -->
+    <section class="container">
+      <div class="map-section">
+        <h2><i class="fa-solid fa-map"></i> Find Us</h2>
+        <div class="map-container">
+          <div class="map-placeholder">
+            <i class="fa-solid fa-map-marker-alt"></i>
+            <p>Interactive map will be displayed here</p>
+            <p style="font-size: 0.9rem; margin-top: var(--spacing-sm);">
+              Address: 123 Smart Street, Tech Park, Surat, Gujarat 395001, India
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ❓ FAQ SECTION -->
+    <section class="container">
+      <div class="faq-section">
+        <h2><i class="fa-solid fa-question-circle"></i> Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>How do I get started with Smart Vendor?</h3>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Getting started is easy! Simply sign up for an account, complete your profile, upload your products, and start receiving orders. Our platform is designed to be user-friendly and requires no technical knowledge.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>What payment methods do you support?</h3>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>We support multiple payment methods including UPI, credit/debit cards, net banking, and digital wallets like Paytm, PhonePe, and Google Pay. All transactions are secure and encrypted.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>Is there a mobile app available?</h3>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Yes! Our mobile app is available for both Android and iOS devices. You can download it from the Google Play Store or Apple App Store. The app provides all the features of our web platform with an optimized mobile experience.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>How much does it cost to use Smart Vendor?</h3>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>We offer flexible pricing plans starting from ₹99/month. There are no hidden fees or setup costs. You only pay for what you use, and we take a small commission on successful transactions.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>Do you provide customer support?</h3>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Absolutely! We provide 24/7 customer support through multiple channels including phone, email, live chat, and WhatsApp. Our support team is available in English, Hindi, and Gujarati.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 📞 FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3><i class="fa-solid fa-shop"></i> Smart Vendor</h3>
+          <p>Empowering local businesses with digital solutions for the modern marketplace.</p>
+          <div class="social-links">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Features</h4>
+          <ul>
+            <li><a href="#">QR Menu</a></li>
+            <li><a href="#">Slot Booking</a></li>
+            <li><a href="#">Inventory Management</a></li>
+            <li><a href="#">Analytics</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Contact Support</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Smart Vendor. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 💬 Floating WhatsApp Button -->
+  <div class="floating-whatsapp">
+    <a href="https://wa.me/1234567890" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <!-- 🔥 SCRIPTS -->
+  <script src="script.js"></script>
+  <script>
+    // 📝 Contact Form Handling
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form data
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value
+      };
+      
+      // Add loading state
+      const submitBtn = document.querySelector('.submit-btn');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+      submitBtn.disabled = true;
+      
+      // Simulate form submission
+      setTimeout(() => {
+        showNotification('Message sent successfully! We\'ll get back to you soon.', 'success');
+        document.getElementById('contactForm').reset();
+        
+        // Reset button
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }, 2000);
+    });
+
+    // ❓ FAQ Toggle
+    function toggleFAQ(element) {
+      const answer = element.nextElementSibling;
+      const icon = element.querySelector('i');
+      
+      // Close all other FAQs
+      document.querySelectorAll('.faq-answer').forEach(item => {
+        if (item !== answer) {
+          item.classList.remove('active');
+        }
+      });
+      
+      document.querySelectorAll('.faq-question i').forEach(item => {
+        if (item !== icon) {
+          item.style.transform = 'rotate(0deg)';
+        }
+      });
+      
+      // Toggle current FAQ
+      answer.classList.toggle('active');
+      icon.style.transform = answer.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+
+    // 🔔 Notification Function
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.className = `notification notification-${type}`;
+      notification.innerHTML = `
+        <i class="fa-solid fa-${getNotificationIcon(type)}"></i>
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      `;
+
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-md);
+        padding: var(--spacing-sm) var(--spacing-md);
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        z-index: 10000;
+        animation: slideInRight 0.3s ease-out;
+        max-width: 300px;
+        color: var(--text-primary);
+      `;
+
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        if (notification.parentElement) {
+          notification.remove();
+        }
+      }, 5000);
+    }
+
+    function getNotificationIcon(type) {
+      const icons = {
+        success: 'check-circle',
+        error: 'exclamation-circle',
+        warning: 'exclamation-triangle',
+        info: 'info-circle'
+      };
+      return icons[type] || 'info-circle';
+    }
+
+    // 🌟 Form Input Effects
+    document.querySelectorAll('.form-input').forEach(input => {
+      input.addEventListener('focus', function() {
+        this.style.transform = 'translateY(-1px)';
+        this.style.boxShadow = '0 0 0 3px rgba(99, 102, 241, 0.1)';
+      });
+      
+      input.addEventListener('blur', function() {
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = 'none';
+      });
+    });
+  </script>
+</body>
+</html>

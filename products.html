@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products & Vendors - Smart Vendor</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Products Page Specific Styles */
+    .products-hero {
+      padding: 120px var(--spacing-md) var(--spacing-xl);
+      text-align: center;
+      background: var(--bg-secondary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .products-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient-primary);
+      opacity: 0.05;
+    }
+
+    .products-hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .products-hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-sm);
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .products-hero p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto var(--spacing-lg);
+    }
+
+    .search-filters {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .search-bar {
+      display: flex;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .search-input {
+      flex: 1;
+      padding: var(--spacing-sm);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      background: var(--glass-bg);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .search-btn {
+      padding: var(--spacing-sm) var(--spacing-lg);
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .search-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: var(--spacing-sm);
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      background: var(--glass-bg);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: 0.9rem;
+    }
+
+    .filter-tab.active,
+    .filter-tab:hover {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .product-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all var(--transition-normal);
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform var(--transition-normal);
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.05);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: var(--spacing-sm);
+      right: var(--spacing-sm);
+      padding: 4px var(--spacing-xs);
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      z-index: 1;
+    }
+
+    .badge-new {
+      background: var(--success-color);
+      color: white;
+    }
+
+    .badge-sale {
+      background: var(--error-color);
+      color: white;
+    }
+
+    .badge-out-of-stock {
+      background: var(--text-muted);
+      color: white;
+    }
+
+    .product-content {
+      padding: var(--spacing-md);
+    }
+
+    .product-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-xs);
+      color: var(--text-primary);
+    }
+
+    .product-vendor {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .product-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: var(--spacing-sm);
+      line-height: 1.5;
+    }
+
+    .product-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      color: var(--warning-color);
+      font-size: 0.9rem;
+    }
+
+    .product-reviews {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .stars {
+      font-size: 1rem;
+      color: var(--warning-color);
+    }
+
+    .review-count {
+      font-weight: 600;
+    }
+
+    .review-btn {
+      padding: var(--spacing-xs) var(--spacing-sm);
+      background: var(--glass-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+    }
+
+    .review-btn:hover {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .product-actions {
+      display: flex;
+      gap: var(--spacing-sm);
+    }
+
+    .add-to-cart-btn {
+      flex: 1;
+      padding: var(--spacing-sm);
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-xs);
+    }
+
+    .add-to-cart-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .add-to-cart-btn:disabled {
+      background: var(--text-muted);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .view-details-btn {
+      padding: var(--spacing-sm);
+      background: var(--glass-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .view-details-btn:hover {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .slot-booking {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .slot-booking h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-md);
+      color: var(--text-primary);
+    }
+
+    .slot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-md);
+    }
+
+    .slot-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-md);
+      text-align: center;
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .slot-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .slot-card.booked {
+      background: var(--error-color);
+      color: white;
+      cursor: not-allowed;
+    }
+
+    .slot-card.selected {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .slot-time {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .slot-status {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .booking-btn {
+      width: 100%;
+      padding: var(--spacing-sm);
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      margin-top: var(--spacing-md);
+    }
+
+    .booking-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .booking-btn:disabled {
+      background: var(--text-muted);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .qr-section {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      text-align: center;
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .qr-section h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-md);
+      color: var(--text-primary);
+    }
+
+    .qr-code {
+      width: 200px;
+      height: 200px;
+      background: white;
+      border-radius: var(--radius-md);
+      margin: 0 auto var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--text-secondary);
+    }
+
+    .qr-info {
+      color: var(--text-secondary);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .qr-download {
+      padding: var(--spacing-sm) var(--spacing-lg);
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .qr-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .products-hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .search-bar {
+        flex-direction: column;
+      }
+
+      .filter-tabs {
+        justify-content: center;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .slot-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 🌙 Dark Mode Overlay -->
+  <div class="dark-mode-overlay"></div>
+
+  <!-- 🔷 HEADER -->
+  <header class="header glass">
+    <div class="header-content">
+      <div class="logo">
+        <i class="fa-solid fa-shop"></i> 
+        <span>Smart Vendor</span>
+      </div>
+      
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html" class="active">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html" class="login-btn">Login</a>
+      </nav>
+
+      <!-- 🌙 Dark Mode Toggle -->
+      <div class="theme-toggle">
+        <input type="checkbox" id="darkModeToggle" class="theme-toggle-input">
+        <label for="darkModeToggle" class="theme-toggle-label">
+          <i class="fa-solid fa-sun"></i>
+          <i class="fa-solid fa-moon"></i>
+        </label>
+      </div>
+
+      <!-- 🌐 Language Selector -->
+      <div class="language-selector">
+        <select id="languageSelect">
+          <option value="en">🇺🇸 EN</option>
+          <option value="hi">🇮🇳 हिंदी</option>
+          <option value="gu">🇮🇳 ગુજરાતી</option>
+        </select>
+      </div>
+
+      <!-- 🛒 Smart Cart Icon -->
+      <div class="cart-icon" id="cartIcon">
+        <i class="fa-solid fa-shopping-cart"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 🛒 Smart Cart Sidebar -->
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3><i class="fa-solid fa-shopping-cart"></i> Smart Cart</h3>
+      <button class="close-cart" id="closeCart">
+        <i class="fa-solid fa-times"></i>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- Cart items will be dynamically added here -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cartTotal">₹0</span>
+      </div>
+      <button class="btn btn-primary checkout-btn">
+        <i class="fa-solid fa-credit-card"></i> Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- 💖 Wishlist Drawer -->
+  <div class="wishlist-drawer glass" id="wishlistDrawer" style="right:-400px;">
+    <div class="wishlist-header">
+      <h3><i class="fa-solid fa-heart"></i> My Wishlist</h3>
+      <button class="close-wishlist" id="closeWishlist"><i class="fa-solid fa-times"></i></button>
+    </div>
+    <div class="wishlist-items" id="wishlistItems"></div>
+  </div>
+  <!-- 💖 Wishlist Open Button -->
+  <button class="open-wishlist-btn" id="openWishlist"><i class="fa-solid fa-heart"></i> Wishlist</button>
+
+  <!-- ✅ MAIN CONTENT -->
+  <main>
+    <!-- 🔶 PRODUCTS HERO -->
+    <section class="products-hero">
+      <div class="products-hero-content">
+        <h1>Products & Vendors</h1>
+        <p>Discover amazing products from local vendors. Book slots, scan QR codes, and shop with ease.</p>
+      </div>
+    </section>
+
+    <!-- 🔍 SEARCH & FILTERS -->
+    <section class="container">
+      <div class="search-filters">
+        <div class="search-bar">
+          <input type="text" class="search-input" placeholder="Search products, vendors, or categories..." id="searchInput">
+          <button class="search-btn" onclick="searchProducts()">
+            <i class="fa-solid fa-search"></i> Search
+          </button>
+        </div>
+        
+        <div class="filter-tabs">
+          <div class="filter-tab active" onclick="filterProducts('all', event)">All</div>
+          <div class="filter-tab" onclick="filterProducts('grocery', event)">Grocery</div>
+          <div class="filter-tab" onclick="filterProducts('electronics', event)">Electronics</div>
+          <div class="filter-tab" onclick="filterProducts('fashion', event)">Fashion</div>
+          <div class="filter-tab" onclick="filterProducts('spices', event)">Spices</div>
+          <div class="filter-tab" onclick="filterProducts('fresh', event)">Fresh Food</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🏪 PRODUCTS GRID -->
+    <section class="container">
+      <div class="products-grid" id="productsGrid">
+        <!-- Products will be dynamically loaded here -->
+      </div>
+      <div id="loadMoreSentinel" aria-hidden="true"></div>
+    </section>
+
+    <!-- 📅 VENDOR SLOT BOOKING -->
+    <section class="container">
+      <div class="slot-booking">
+        <h2><i class="fa-solid fa-calendar-check"></i> Vendor Slot Booking</h2>
+        <p style="color: var(--text-secondary); margin-bottom: var(--spacing-lg);">
+          Reserve your preferred time slot to visit vendors. Real-time availability updates.
+        </p>
+        
+        <div class="slot-grid" id="slotGrid">
+          <!-- Slots will be dynamically loaded here -->
+        </div>
+        
+        <button class="booking-btn" id="bookingBtn" onclick="bookSelectedSlot()" disabled>
+          <i class="fa-solid fa-calendar-plus"></i> Book Selected Slot
+        </button>
+      </div>
+    </section>
+
+    <!-- 📱 QR MENU SECTION -->
+    <section class="container">
+      <div class="qr-section">
+        <h2><i class="fa-solid fa-qrcode"></i> Smart QR Menu</h2>
+        <p class="qr-info">
+          Generate QR codes for your menu. Customers can scan to view your products instantly.
+        </p>
+        
+        <div class="qr-code">
+          <i class="fa-solid fa-qrcode"></i>
+        </div>
+        
+        <p style="color: var(--text-secondary); margin-bottom: var(--spacing-md);">
+          Scan this QR code to view the complete menu
+        </p>
+        
+        <button class="qr-download" onclick="downloadQR()">
+          <i class="fa-solid fa-download"></i> Download QR Code
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- 📞 FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3><i class="fa-solid fa-shop"></i> Smart Vendor</h3>
+          <p>Empowering local businesses with digital solutions for the modern marketplace.</p>
+          <div class="social-links">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Features</h4>
+          <ul>
+            <li><a href="#">QR Menu</a></li>
+            <li><a href="#">Slot Booking</a></li>
+            <li><a href="#">Inventory Management</a></li>
+            <li><a href="#">Analytics</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Contact Support</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Smart Vendor. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 💬 Floating WhatsApp Button -->
+  <div class="floating-whatsapp">
+    <a href="https://wa.me/1234567890" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <!-- 🔔 Toast Notifications Container -->
+  <div id="toastContainer"></div>
+
+  <!-- 🔥 SCRIPTS -->
+  <script src="script.js"></script>
+  <script>
+    // 💖 Wishlist helpers
+    const WISHLIST_KEY = 'sv_wishlist_products';
+    function getWishlist() {
+      try { return JSON.parse(localStorage.getItem(WISHLIST_KEY)) || []; } catch { return []; }
+    }
+    function setWishlist(list) { localStorage.setItem(WISHLIST_KEY, JSON.stringify(list)); }
+    function isFavorite(productId) { return getWishlist().includes(productId); }
+    function toggleFavorite(productId, btn) {
+      const list = getWishlist();
+      const i = list.indexOf(productId);
+      const willFav = i === -1;
+      if (willFav) list.push(productId); else list.splice(i, 1);
+      setWishlist(list);
+      if (btn) {
+        btn.classList.toggle('favorited', willFav);
+        const icon = btn.querySelector('i');
+        if (icon) icon.className = `${willFav ? 'fa-solid' : 'fa-regular'} fa-heart`;
+      }
+      showToast(willFav ? 'Added to wishlist!' : 'Removed from wishlist!', willFav ? 'success' : 'info');
+      renderWishlist();
+    }
+    function renderWishlist() {
+      const container = document.getElementById('wishlistItems');
+      if (!container) return;
+      const list = getWishlist();
+      container.innerHTML = '';
+      if (list.length === 0) {
+        container.innerHTML = '<p style="color:var(--text-secondary);text-align:center;">Your wishlist is empty</p>';
+        return;
+      }
+      list.forEach(id => {
+        const p = products.find(x => x.id === id);
+        if (!p) return;
+        const item = document.createElement('div');
+        item.className = 'wishlist-item';
+        item.innerHTML = `
+          <img src="${p.image}" alt="${p.name}" />
+          <div class='wishlist-item-info'>
+            <h4>${p.name}</h4>
+            <p>₹${p.price}</p>
+          </div>
+          <button class='remove-wishlist-btn' onclick="toggleFavorite('${p.id}')"><i class='fa-solid fa-trash'></i></button>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    // 🏪 Products Data
+    const products = [
+      {
+        id: '1',
+        name: 'Fresh Tomatoes',
+        vendor: 'Fresh Grocery Store',
+        description: 'Organic red tomatoes, freshly harvested',
+        price: 45,
+        image: 'https://via.placeholder.com/300x200/4ade80/ffffff?text=Tomatoes',
+        category: 'grocery',
+        rating: 4.8,
+        stock: 50,
+        badge: 'new'
+      },
+      {
+        id: '2',
+        name: 'Premium Basmati Rice',
+        vendor: 'Spice Corner',
+        description: 'Aromatic long-grain basmati rice',
+        price: 120,
+        image: 'https://via.placeholder.com/300x200/f59e0b/ffffff?text=Rice',
+        category: 'spices',
+        rating: 4.6,
+        stock: 25,
+        badge: 'sale'
+      },
+      {
+        id: '3',
+        name: 'Smartphone Charger',
+        vendor: 'Tech Gadgets',
+        description: 'Fast charging USB-C cable',
+        price: 299,
+        image: 'https://via.placeholder.com/300x200/6366f1/ffffff?text=Charger',
+        category: 'electronics',
+        rating: 4.9,
+        stock: 0,
+        badge: 'out-of-stock'
+      },
+      {
+        id: '4',
+        name: 'Cotton T-Shirt',
+        vendor: 'Fashion Boutique',
+        description: 'Comfortable cotton t-shirt in various colors',
+        price: 599,
+        image: 'https://via.placeholder.com/300x200/ec4899/ffffff?text=T-Shirt',
+        category: 'fashion',
+        rating: 4.7,
+        stock: 15,
+        badge: null
+      },
+      {
+        id: '5',
+        name: 'Mixed Vegetables',
+        vendor: 'Fresh Grocery Store',
+        description: 'Fresh seasonal vegetables pack',
+        price: 80,
+        image: 'https://via.placeholder.com/300x200/10b981/ffffff?text=Vegetables',
+        category: 'fresh',
+        rating: 4.5,
+        stock: 30,
+        badge: null
+      },
+      {
+        id: '6',
+        name: 'Garam Masala',
+        vendor: 'Spice Corner',
+        description: 'Traditional Indian spice blend',
+        price: 85,
+        image: 'https://via.placeholder.com/300x200/f97316/ffffff?text=Masala',
+        category: 'spices',
+        rating: 4.8,
+        stock: 20,
+        badge: null
+      }
+    ];
+
+    // 📅 Slot Data
+    const timeSlots = [
+      { id: 1, time: '9:00 AM', status: 'available' },
+      { id: 2, time: '10:00 AM', status: 'booked' },
+      { id: 3, time: '11:00 AM', status: 'available' },
+      { id: 4, time: '12:00 PM', status: 'available' },
+      { id: 5, time: '1:00 PM', status: 'booked' },
+      { id: 6, time: '2:00 PM', status: 'available' },
+      { id: 7, time: '3:00 PM', status: 'available' },
+      { id: 8, time: '4:00 PM', status: 'available' }
+    ];
+
+    let selectedSlot = null;
+    let currentFilter = 'all';
+    let filteredProducts = [...products];
+    let visibleCount = 6;
+
+    // 🚀 Initialize Page
+    document.addEventListener('DOMContentLoaded', () => {
+      displayProducts();
+      displaySlots();
+      setupEventListeners();
+      const inputEl = document.getElementById('searchInput');
+      if (inputEl) inputEl.addEventListener('input', debounce(searchProducts, 250));
+      const openW = document.getElementById('openWishlist');
+      const closeW = document.getElementById('closeWishlist');
+      const drawer = document.getElementById('wishlistDrawer');
+      if (openW && drawer) openW.addEventListener('click', () => { drawer.classList.add('open'); renderWishlist(); });
+      if (closeW && drawer) closeW.addEventListener('click', () => drawer.classList.remove('open'));
+      const sentinel = document.getElementById('loadMoreSentinel');
+      if (sentinel) {
+        const io = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+            const prev = visibleCount;
+            visibleCount = Math.min(visibleCount + 6, filteredProducts.length);
+            if (visibleCount !== prev) displayProducts();
+          }
+        }, { rootMargin: '200px' });
+        io.observe(sentinel);
+      }
+    });
+
+    // 🏪 Display Products
+    function displayProducts() {
+      const productsGrid = document.getElementById('productsGrid');
+      if (!productsGrid) return;
+
+      productsGrid.innerHTML = '';
+      const toRender = filteredProducts.slice(0, visibleCount);
+      toRender.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        const badge = product.badge ? `<div class="product-badge badge-${product.badge}">${product.badge.toUpperCase()}</div>` : '';
+        const isFav = (JSON.parse(localStorage.getItem('sv_wishlist_products')||'[]')).includes(product.id);
+        productCard.innerHTML = `
+          ${badge}
+          <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy">
+          <div class="product-content">
+            <h3 class="product-title">${product.name}</h3>
+            <p class="product-vendor">by ${product.vendor}</p>
+            <p class="product-description">${product.description}</p>
+            <div class="product-meta">
+              <div class="product-price">₹${product.price}</div>
+              <div class="product-rating">
+                <i class="fa-solid fa-star"></i>
+                <span>${product.rating}</span>
+              </div>
+              <div class="product-reviews">
+                <span class="stars" data-rating="${product.rating}"></span>
+                <span class="review-count" id="reviewCount-${product.id}">(0 reviews)</span>
+                <button class="review-btn" onclick="openReviewModal('${product.id}')">
+                  <i class="fa-solid fa-comment-dots"></i> Reviews
+                </button>
+              </div>
+            </div>
+            <div class="product-actions">
+              <button class="add-to-cart-btn" onclick="addToCart('${product.id}', '${product.name}', ${product.price}, '${product.image}')" ${product.stock === 0 ? 'disabled' : ''}>
+                <i class="fa-solid fa-cart-plus"></i>
+                ${product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+              </button>
+              <button class="view-details-btn" onclick="viewProduct('${product.id}')">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+              <button class="quick-view-btn" onclick="openQuickView('${product.id}')">
+                <i class="fa-solid fa-magnifying-glass"></i> Quick View
+              </button>
+              <button class="favorite-btn ${isFav ? 'favorited' : ''}" onclick="toggleFavorite('${product.id}', this)" aria-label="Add to Wishlist">
+                <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        productsGrid.appendChild(productCard);
+      });
+    }
+
+    // 📅 Display Slots
+    function displaySlots() {
+      const slotGrid = document.getElementById('slotGrid');
+      if (!slotGrid) return;
+
+      slotGrid.innerHTML = '';
+      
+      timeSlots.forEach(slot => {
+        const slotCard = document.createElement('div');
+        slotCard.className = `slot-card ${slot.status}`;
+        slotCard.onclick = () => selectSlot(slot.id);
+        
+        slotCard.innerHTML = `
+          <div class="slot-time">${slot.time}</div>
+          <div class="slot-status">${slot.status}</div>
+        `;
+        
+        slotGrid.appendChild(slotCard);
+      });
+    }
+
+    // 🎯 Select Slot
+    function selectSlot(slotId) {
+      const slot = timeSlots.find(s => s.id === slotId);
+      if (!slot || slot.status === 'booked') return;
+
+      // Remove previous selection
+      document.querySelectorAll('.slot-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+
+      // Add selection to clicked slot
+      const slotCard = document.querySelector(`[onclick="selectSlot(${slotId})"]`);
+      if (slotCard) {
+        slotCard.classList.add('selected');
+      }
+
+      selectedSlot = slot;
+      document.getElementById('bookingBtn').disabled = false;
+    }
+
+    // 📅 Book Slot
+    function bookSelectedSlot() {
+      if (!selectedSlot) return;
+
+      // Simulate booking process
+      showNotification(`Slot ${selectedSlot.time} booked successfully!`, 'success');
+      
+      // Update slot status
+      selectedSlot.status = 'booked';
+      displaySlots();
+      
+      // Reset selection
+      selectedSlot = null;
+      document.getElementById('bookingBtn').disabled = true;
+    }
+
+    // 🔍 Search Products
+    function searchProducts() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      filteredProducts = products.filter(product => 
+        product.name.toLowerCase().includes(searchTerm) ||
+        product.vendor.toLowerCase().includes(searchTerm) ||
+        product.category.toLowerCase().includes(searchTerm) ||
+        product.description.toLowerCase().includes(searchTerm)
+      );
+      visibleCount = Math.min(visibleCount, filteredProducts.length) || 6;
+      displayProducts();
+    }
+
+    // 🏷️ Filter Products
+    function filterProducts(category, ev) {
+      currentFilter = category;
+      document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+      if (ev && ev.currentTarget) ev.currentTarget.classList.add('active');
+      filteredProducts = category === 'all' ? [...products] : products.filter(p => p.category === category);
+      visibleCount = Math.min(visibleCount, filteredProducts.length) || 6;
+      displayProducts();
+    }
+
+    // 🛒 Add to Cart
+    function addToCart(productId, productName, productPrice, productImage) {
+      const product = {
+        id: productId,
+        name: productName,
+        price: parseFloat(productPrice),
+        image: productImage
+      };
+      
+      if (smartVendor) {
+        smartVendor.addToCart(product);
+      }
+    }
+
+    // 👁️ View Product Details
+    function viewProduct(productId) {
+      const product = products.find(p => p.id === productId);
+      if (product) {
+        showNotification(`Viewing ${product.name} details`, 'info');
+        // Here you would typically navigate to a product detail page
+      }
+    }
+
+    // 📱 Download QR Code
+    function downloadQR() {
+      showNotification('QR code download started!', 'success');
+      // Here you would typically generate and download a QR code
+    }
+
+    // 🎯 Event Listeners
+    function setupEventListeners() {
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') searchProducts();
+        });
+      }
+    }
+
+    // 🔔 Notification Function
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.className = `notification notification-${type}`;
+      notification.innerHTML = `
+        <i class="fa-solid fa-${getNotificationIcon(type)}"></i>
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      `;
+
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-md);
+        padding: var(--spacing-sm) var(--spacing-md);
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        z-index: 10000;
+        animation: slideInRight 0.3s ease-out;
+        max-width: 300px;
+        color: var(--text-primary);
+      `;
+
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        if (notification.parentElement) {
+          notification.remove();
+        }
+      }, 5000);
+    }
+
+    function getNotificationIcon(type) {
+      const icons = {
+        success: 'check-circle',
+        error: 'exclamation-circle',
+        warning: 'exclamation-triangle',
+        info: 'info-circle'
+      };
+      return icons[type] || 'info-circle';
+    }
+  </script>
+  <!-- ⭐ Review Modal -->
+<div class="modal glass" id="reviewModal" style="display:none;">
+  <div class="modal-content">
+    <span class="close-modal" id="closeReviewModal">&times;</span>
+    <h2>Product Reviews</h2>
+    <div id="reviewsList"></div>
+    <form id="reviewForm">
+      <h3>Write a Review</h3>
+      <div class="star-input" id="starInput"></div>
+      <input type="text" id="reviewerName" placeholder="Your Name" required />
+      <textarea id="reviewText" placeholder="Your Review" required></textarea>
+      <button type="submit" class="btn btn-primary">Submit Review</button>
+    </form>
+  </div>
+</div>
+<!-- 👁️ Product Quick View Modal -->
+<div class="modal glass" id="quickViewModal" style="display:none;">
+  <div class="modal-content" id="quickViewContent">
+    <span class="close-modal" id="closeQuickViewModal">&times;</span>
+    <!-- Content will be injected dynamically -->
+  </div>
+</div>
+<script>
+// 👁️ Quick View Modal Logic
+const quickViewModal = document.getElementById('quickViewModal');
+const quickViewContent = document.getElementById('quickViewContent');
+const closeQuickViewModal = document.getElementById('closeQuickViewModal');
+function openQuickView(productId) {
+  const product = products.find(p => p.id == productId);
+  if (!product) return;
+  quickViewContent.innerHTML = `
+    <span class='close-modal' id='closeQuickViewModal'>&times;</span>
+    <img src='${product.image}' alt='${product.name}' />
+    <div class='product-title'>${product.name}</div>
+    <div class='product-vendor'>by ${product.vendor}</div>
+    <div class='product-price'>₹${product.price}</div>
+    <div class='product-rating'>
+      <span class='stars'>${'★'.repeat(Math.round(product.rating))}${'☆'.repeat(5 - Math.round(product.rating))}</span>
+      <span style='color:var(--text-secondary);font-size:0.95rem;'>&nbsp;(${product.rating})</span>
+    </div>
+    <div class='product-description'>${product.description}</div>
+    <div class='quick-actions'>
+      <button class='add-to-cart-btn' onclick="addToCart('${product.id}', '${product.name}', ${product.price}, '${product.image}')">
+        <i class='fa-solid fa-cart-plus'></i> Add to Cart
+      </button>
+      <button class='favorite-btn' onclick="toggleFavorite('${product.id}', this)" aria-label="Add to Wishlist">
+        <i class='fa-regular fa-heart'></i>
+      </button>
+    </div>
+  `;
+  quickViewModal.style.display = 'flex';
+  // Attach close event
+  document.getElementById('closeQuickViewModal').onclick = closeQuickView;
+}
+function closeQuickView() {
+  quickViewModal.style.display = 'none';
+  quickViewContent.innerHTML = '';
+}
+window.addEventListener('click', function(e) {
+  if (e.target === quickViewModal) closeQuickView();
+});
+</script>
+<script>
+// 🔔 Toast Notification Logic
+function showToast(message, type = 'info') {
+  const toastContainer = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  let icon = '<i class="fa-solid fa-info-circle toast-icon"></i>';
+  if (type === 'success') icon = '<i class="fa-solid fa-circle-check toast-icon"></i>';
+  if (type === 'error') icon = '<i class="fa-solid fa-circle-xmark toast-icon"></i>';
+  toast.innerHTML = `${icon}<span>${message}</span>`;
+  toastContainer.appendChild(toast);
+  setTimeout(() => {
+    toast.style.pointerEvents = 'none';
+    toast.remove();
+  }, 3000);
+}
+// Debounce utility
+function debounce(fn, delay) {
+  let timer = null;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+// Show toast after cart add
+if (window.addToCart) {
+  const origAddToCart = window.addToCart;
+  window.addToCart = function(...args) {
+    origAddToCart.apply(this, args);
+    showToast('Added to cart!', 'success');
+  };
+}
+</script>
+</script>

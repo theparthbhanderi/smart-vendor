@@ -1,0 +1,390 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - Smart Vendor</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 🌙 Dark Mode Overlay -->
+  <div class="dark-mode-overlay"></div>
+
+  <!-- 🔷 HEADER -->
+  <header class="header glass">
+    <div class="header-content">
+      <div class="logo">
+        <i class="fa-solid fa-shop"></i> 
+        <span>Smart Vendor</span>
+      </div>
+      
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html" class="active">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html" class="login-btn">Login</a>
+      </nav>
+
+      <!-- 🌙 Dark Mode Toggle -->
+      <div class="theme-toggle">
+        <input type="checkbox" id="darkModeToggle" class="theme-toggle-input">
+        <label for="darkModeToggle" class="theme-toggle-label">
+          <i class="fa-solid fa-sun"></i>
+          <i class="fa-solid fa-moon"></i>
+        </label>
+      </div>
+
+      <!-- 🌐 Language Selector -->
+      <div class="language-selector">
+        <select id="languageSelect">
+          <option value="en">🇺🇸 EN</option>
+          <option value="hi">🇮🇳 हिंदी</option>
+          <option value="gu">🇮🇳 ગુજરાતી</option>
+        </select>
+      </div>
+
+      <!-- 🛒 Smart Cart Icon -->
+      <div class="cart-icon" id="cartIcon">
+        <i class="fa-solid fa-shopping-cart"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 🛒 Smart Cart Sidebar -->
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3><i class="fa-solid fa-shopping-cart"></i> Smart Cart</h3>
+      <button class="close-cart" id="closeCart">
+        <i class="fa-solid fa-times"></i>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- Cart items will be dynamically added here -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cartTotal">₹0</span>
+      </div>
+      <button class="btn btn-primary checkout-btn">
+        <i class="fa-solid fa-credit-card"></i> Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- ✅ MAIN CONTENT -->
+  <main>
+    <!-- 🔶 ABOUT HERO -->
+    <section class="hero">
+      <div class="hero-background">
+        <div class="floating-shapes">
+          <div class="shape shape-1"></div>
+          <div class="shape shape-2"></div>
+          <div class="shape shape-3"></div>
+        </div>
+      </div>
+      
+      <div class="hero-content">
+        <div class="hero-text glass">
+          <h1 class="hero-title">
+            About <span class="gradient-text">Smart Vendor</span>
+          </h1>
+          <p class="hero-subtitle">
+            We're revolutionizing the way local businesses connect with customers. 
+            Our platform empowers vendors with digital tools to grow their business and reach more customers.
+          </p>
+          
+          <div class="hero-stats">
+            <div class="stat-item">
+              <h3 data-target="500">500+</h3>
+              <p>Active Vendors</p>
+            </div>
+            <div class="stat-item">
+              <h3 data-target="10000">10K+</h3>
+              <p>Products Listed</p>
+            </div>
+            <div class="stat-item">
+              <h3 data-target="5">4.9★</h3>
+              <p>User Rating</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📚 MISSION & VISION -->
+    <section class="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>Our Mission & Vision</h2>
+          <p>Empowering local businesses with digital solutions for the modern marketplace</p>
+        </div>
+        
+        <div class="features-grid">
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-bullseye"></i>
+            </div>
+            <h3>Our Mission</h3>
+            <p>To democratize digital commerce for small businesses by providing affordable, easy-to-use tools that help them compete in the digital age.</p>
+          </div>
+          
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-eye"></i>
+            </div>
+            <h3>Our Vision</h3>
+            <p>To create a world where every local business can thrive digitally, connecting communities and preserving local commerce traditions.</p>
+          </div>
+          
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-heart"></i>
+            </div>
+            <h3>Our Values</h3>
+            <p>Innovation, accessibility, community support, and sustainable growth. We believe in technology that serves people, not the other way around.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🚀 HOW IT WORKS -->
+    <section class="vendor-showcase">
+      <div class="container">
+        <div class="section-header">
+          <h2>How Smart Vendor Works</h2>
+          <p>Simple steps to transform your business digitally</p>
+        </div>
+        
+        <div class="features-grid">
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-user-plus"></i>
+            </div>
+            <h3>1. Sign Up</h3>
+            <p>Create your vendor account in minutes. No complex setup required.</p>
+          </div>
+          
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-upload"></i>
+            </div>
+            <h3>2. Upload Products</h3>
+            <p>Add your products with photos, descriptions, and prices. Use our smart camera feature for easy uploads.</p>
+          </div>
+          
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-qrcode"></i>
+            </div>
+            <h3>3. Generate QR Menu</h3>
+            <p>Get your unique QR code that customers can scan to view your complete menu and products.</p>
+          </div>
+          
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <h3>4. Start Selling</h3>
+            <p>Receive orders, manage inventory, and grow your business with our analytics and insights.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 💡 KEY FEATURES -->
+    <section class="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>Key Features</h2>
+          <p>Everything you need to run a successful digital business</p>
+        </div>
+        
+        <div class="features-grid">
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-mobile-alt"></i>
+            </div>
+            <h3>Mobile First</h3>
+            <p>Optimized for mobile devices. Works perfectly on smartphones and tablets.</p>
+          </div>
+          
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-language"></i>
+            </div>
+            <h3>Multi-Language</h3>
+            <p>Support for English, Hindi, and Gujarati. More languages coming soon.</p>
+          </div>
+          
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-wifi"></i>
+            </div>
+            <h3>Offline Mode</h3>
+            <p>Works even with poor internet connectivity. Syncs when connection is restored.</p>
+          </div>
+          
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-shield-alt"></i>
+            </div>
+            <h3>Secure Payments</h3>
+            <p>Multiple payment options with bank-grade security and encryption.</p>
+          </div>
+          
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-chart-bar"></i>
+            </div>
+            <h3>Analytics Dashboard</h3>
+            <p>Track sales, customer behavior, and business performance with detailed insights.</p>
+          </div>
+          
+          <div class="feature-card glass">
+            <div class="feature-icon">
+              <i class="fa-solid fa-headset"></i>
+            </div>
+            <h3>24/7 Support</h3>
+            <p>Round-the-clock customer support in your preferred language.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 👥 TEAM SECTION -->
+    <section class="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <h2>Meet Our Team</h2>
+          <p>The passionate people behind Smart Vendor</p>
+        </div>
+        
+        <div class="testimonials-grid">
+          <div class="testimonial-card glass">
+            <div class="testimonial-content">
+              <img src="https://via.placeholder.com/100" alt="Team Member" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: var(--spacing-sm);">
+              <h4>Rajesh Kumar</h4>
+              <p style="color: var(--primary-color); margin-bottom: var(--spacing-sm);">Founder & CEO</p>
+              <p>"Our mission is to make digital commerce accessible to every small business owner in India."</p>
+            </div>
+          </div>
+          
+          <div class="testimonial-card glass">
+            <div class="testimonial-content">
+              <img src="https://via.placeholder.com/100" alt="Team Member" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: var(--spacing-sm);">
+              <h4>Priya Sharma</h4>
+              <p style="color: var(--primary-color); margin-bottom: var(--spacing-sm);">Head of Product</p>
+              <p>"We focus on user experience and simplicity. Technology should make life easier, not harder."</p>
+            </div>
+          </div>
+          
+          <div class="testimonial-card glass">
+            <div class="testimonial-content">
+              <img src="https://via.placeholder.com/100" alt="Team Member" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: var(--spacing-sm);">
+              <h4>Amit Patel</h4>
+              <p style="color: var(--primary-color); margin-bottom: var(--spacing-sm);">CTO</p>
+              <p>"We're building scalable solutions that can handle millions of transactions while staying simple to use."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📈 STATS SECTION -->
+    <section class="newsletter">
+      <div class="container">
+        <div class="newsletter-content glass">
+          <h2>Our Impact</h2>
+          <p>Numbers that tell our story</p>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-lg); margin-top: var(--spacing-lg);">
+            <div style="text-align: center;">
+              <h3 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: var(--spacing-xs);">₹50M+</h3>
+              <p>Total Sales Generated</p>
+            </div>
+            <div style="text-align: center;">
+              <h3 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: var(--spacing-xs);">25K+</h3>
+              <p>Happy Customers</p>
+            </div>
+            <div style="text-align: center;">
+              <h3 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: var(--spacing-xs);">15+</h3>
+              <p>Cities Covered</p>
+            </div>
+            <div style="text-align: center;">
+              <h3 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: var(--spacing-xs);">99.9%</h3>
+              <p>Uptime</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 📞 FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3><i class="fa-solid fa-shop"></i> Smart Vendor</h3>
+          <p>Empowering local businesses with digital solutions for the modern marketplace.</p>
+          <div class="social-links">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Features</h4>
+          <ul>
+            <li><a href="#">QR Menu</a></li>
+            <li><a href="#">Slot Booking</a></li>
+            <li><a href="#">Inventory Management</a></li>
+            <li><a href="#">Analytics</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Contact Support</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Smart Vendor. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 💬 Floating WhatsApp Button -->
+  <div class="floating-whatsapp">
+    <a href="https://wa.me/1234567890" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <!-- 🔥 SCRIPTS -->
+  <script src="script.js"></script>
+</body>
+</html>

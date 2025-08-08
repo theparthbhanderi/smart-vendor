@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login / Sign Up - Smart Vendor</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Login Page Specific Styles */
+    .auth-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient-primary);
+      opacity: 0.1;
+    }
+
+    .auth-shapes {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .auth-shape {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gradient-secondary);
+      opacity: 0.1;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .auth-shape-1 {
+      width: 120px;
+      height: 120px;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .auth-shape-2 {
+      width: 80px;
+      height: 80px;
+      top: 60%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+
+    .auth-shape-3 {
+      width: 100px;
+      height: 100px;
+      bottom: 20%;
+      left: 20%;
+      animation-delay: 4s;
+    }
+
+    .auth-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-xl);
+      width: 100%;
+      max-width: 450px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left var(--transition-slow);
+    }
+
+    .auth-card:hover::before {
+      left: 100%;
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .auth-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-xs);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .auth-logo i {
+      font-size: 2rem;
+      color: var(--primary-color);
+    }
+
+    .auth-logo span {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .auth-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-xs);
+      color: var(--text-primary);
+    }
+
+    .auth-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .auth-tabs {
+      display: flex;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--spacing-lg);
+      position: relative;
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: var(--spacing-sm);
+      text-align: center;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+      font-weight: 500;
+      color: var(--text-secondary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-tab.active {
+      color: var(--text-primary);
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .auth-form {
+      display: none;
+    }
+
+    .auth-form.active {
+      display: block;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    .form-group {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: var(--spacing-xs);
+      font-weight: 500;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: var(--spacing-sm);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      background: var(--glass-bg);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .form-input.glow {
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+    }
+
+    .input-icon {
+      position: relative;
+    }
+
+    .input-icon i {
+      position: absolute;
+      left: var(--spacing-sm);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .input-icon .form-input {
+      padding-left: calc(var(--spacing-sm) * 2 + 20px);
+    }
+
+    .form-checkbox {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .form-checkbox input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primary-color);
+    }
+
+    .form-checkbox label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 0;
+    }
+
+    .auth-btn {
+      width: 100%;
+      padding: var(--spacing-sm);
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-xs);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .auth-btn:active {
+      transform: translateY(0);
+    }
+
+    .auth-divider {
+      text-align: center;
+      margin: var(--spacing-lg) 0;
+      position: relative;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .auth-divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--glass-border);
+    }
+
+    .auth-divider span {
+      background: var(--bg-primary);
+      padding: 0 var(--spacing-sm);
+      position: relative;
+      z-index: 1;
+    }
+
+    .social-auth {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .social-btn {
+      padding: var(--spacing-sm);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      background: var(--glass-bg);
+      color: var(--text-primary);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-xs);
+    }
+
+    .social-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .social-btn.google:hover {
+      border-color: #ea4335;
+      color: #ea4335;
+    }
+
+    .social-btn.facebook:hover {
+      border-color: #1877f2;
+      color: #1877f2;
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: var(--spacing-lg);
+    }
+
+    .auth-footer a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color var(--transition-fast);
+    }
+
+    .auth-footer a:hover {
+      color: var(--secondary-color);
+    }
+
+    .back-home {
+      position: absolute;
+      top: var(--spacing-lg);
+      left: var(--spacing-lg);
+      z-index: 10;
+    }
+
+    .back-home a {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: var(--radius-md);
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      transition: all var(--transition-fast);
+    }
+
+    .back-home a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .auth-card {
+        padding: var(--spacing-lg);
+      }
+
+      .social-auth {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 🌙 Dark Mode Overlay -->
+  <div class="dark-mode-overlay"></div>
+
+  <!-- 🔙 Back to Home -->
+  <div class="back-home">
+    <a href="index.html">
+      <i class="fa-solid fa-arrow-left"></i>
+      <span>Back to Home</span>
+    </a>
+  </div>
+
+  <!-- 🔷 HEADER -->
+  <header class="header glass">
+    <div class="header-content">
+      <div class="logo">
+        <i class="fa-solid fa-shop"></i> 
+        <span>Smart Vendor</span>
+      </div>
+      
+      <!-- 🌙 Dark Mode Toggle -->
+      <div class="theme-toggle">
+        <input type="checkbox" id="darkModeToggle" class="theme-toggle-input">
+        <label for="darkModeToggle" class="theme-toggle-label">
+          <i class="fa-solid fa-sun"></i>
+          <i class="fa-solid fa-moon"></i>
+        </label>
+      </div>
+
+      <!-- 🌐 Language Selector -->
+      <div class="language-selector">
+        <select id="languageSelect">
+          <option value="en">🇺🇸 EN</option>
+          <option value="hi">🇮🇳 हिंदी</option>
+          <option value="gu">🇮🇳 ગુજરાતી</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- 🔐 AUTH CONTAINER -->
+  <div class="auth-container">
+    <div class="auth-background">
+      <div class="auth-shapes">
+        <div class="auth-shape auth-shape-1"></div>
+        <div class="auth-shape auth-shape-2"></div>
+        <div class="auth-shape auth-shape-3"></div>
+      </div>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo">
+          <i class="fa-solid fa-shop"></i>
+          <span>Smart Vendor</span>
+        </div>
+        <h1 class="auth-title">Welcome Back</h1>
+        <p class="auth-subtitle">Sign in to your account or create a new one</p>
+      </div>
+
+      <!-- 🔄 Auth Tabs -->
+      <div class="auth-tabs">
+        <div class="auth-tab active" onclick="switchTab('login')">
+          <i class="fa-solid fa-sign-in-alt"></i> Sign In
+        </div>
+        <div class="auth-tab" onclick="switchTab('signup')">
+          <i class="fa-solid fa-user-plus"></i> Sign Up
+        </div>
+      </div>
+
+      <!-- 📝 Login Form -->
+      <form class="auth-form active" id="loginForm">
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <div class="input-icon">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" id="loginEmail" class="form-input" placeholder="Enter your email" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <div class="input-icon">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="loginPassword" class="form-input" placeholder="Enter your password" required>
+          </div>
+        </div>
+
+        <div class="form-checkbox">
+          <input type="checkbox" id="rememberMe">
+          <label for="rememberMe">Remember me</label>
+        </div>
+
+        <button type="submit" class="auth-btn">
+          <i class="fa-solid fa-sign-in-alt"></i>
+          Sign In
+        </button>
+
+        <div class="auth-divider">
+          <span>or continue with</span>
+        </div>
+
+        <div class="social-auth">
+          <button type="button" class="social-btn google">
+            <i class="fa-brands fa-google"></i>
+            Google
+          </button>
+          <button type="button" class="social-btn facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+            Facebook
+          </button>
+        </div>
+
+        <div class="auth-footer">
+          <a href="#" onclick="forgotPassword()">Forgot your password?</a>
+        </div>
+      </form>
+
+      <!-- 📝 Sign Up Form -->
+      <form class="auth-form" id="signupForm">
+        <div class="form-group">
+          <label for="signupName">Full Name</label>
+          <div class="input-icon">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="signupName" class="form-input" placeholder="Enter your full name" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signupEmail">Email Address</label>
+          <div class="input-icon">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" id="signupEmail" class="form-input" placeholder="Enter your email" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signupPhone">Phone Number</label>
+          <div class="input-icon">
+            <i class="fa-solid fa-phone"></i>
+            <input type="tel" id="signupPhone" class="form-input" placeholder="Enter your phone number" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signupPassword">Password</label>
+          <div class="input-icon">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="signupPassword" class="form-input" placeholder="Create a password" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signupConfirmPassword">Confirm Password</label>
+          <div class="input-icon">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="signupConfirmPassword" class="form-input" placeholder="Confirm your password" required>
+          </div>
+        </div>
+
+        <div class="form-checkbox">
+          <input type="checkbox" id="agreeTerms" required>
+          <label for="agreeTerms">I agree to the <a href="#" style="color: var(--primary-color);">Terms of Service</a> and <a href="#" style="color: var(--primary-color);">Privacy Policy</a></label>
+        </div>
+
+        <button type="submit" class="auth-btn">
+          <i class="fa-solid fa-user-plus"></i>
+          Create Account
+        </button>
+
+        <div class="auth-divider">
+          <span>or continue with</span>
+        </div>
+
+        <div class="social-auth">
+          <button type="button" class="social-btn google">
+            <i class="fa-brands fa-google"></i>
+            Google
+          </button>
+          <button type="button" class="social-btn facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+            Facebook
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 🔥 SCRIPTS -->
+  <script src="script.js"></script>
+  <script>
+    // 🔄 Tab Switching
+    function switchTab(tab) {
+      // Update tab buttons
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Update forms
+      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+      
+      if (tab === 'login') {
+        document.getElementById('loginForm').classList.add('active');
+        document.querySelector('.auth-title').textContent = 'Welcome Back';
+        document.querySelector('.auth-subtitle').textContent = 'Sign in to your account';
+      } else {
+        document.getElementById('signupForm').classList.add('active');
+        document.querySelector('.auth-title').textContent = 'Create Account';
+        document.querySelector('.auth-subtitle').textContent = 'Join Smart Vendor today';
+      }
+    }
+
+    // 🔐 Form Handling
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      
+      // Add glow effect to inputs
+      document.getElementById('loginEmail').classList.add('glow');
+      document.getElementById('loginPassword').classList.add('glow');
+      
+      // Simulate login process
+      setTimeout(() => {
+        showNotification('Login successful! Redirecting...', 'success');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1500);
+      }, 1000);
+    });
+
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('signupName').value;
+      const email = document.getElementById('signupEmail').value;
+      const phone = document.getElementById('signupPhone').value;
+      const password = document.getElementById('signupPassword').value;
+      const confirmPassword = document.getElementById('signupConfirmPassword').value;
+      
+      if (password !== confirmPassword) {
+        showNotification('Passwords do not match!', 'error');
+        return;
+      }
+      
+      // Add glow effect to inputs
+      document.querySelectorAll('#signupForm .form-input').forEach(input => {
+        input.classList.add('glow');
+      });
+      
+      // Simulate signup process
+      setTimeout(() => {
+        showNotification('Account created successfully!', 'success');
+        setTimeout(() => {
+          switchTab('login');
+        }, 1500);
+      }, 1000);
+    });
+
+    // 🔑 Forgot Password
+    function forgotPassword() {
+      const email = prompt('Enter your email address:');
+      if (email) {
+        showNotification('Password reset link sent to your email!', 'info');
+      }
+    }
+
+    // 🌟 Input Focus Effects
+    document.querySelectorAll('.form-input').forEach(input => {
+      input.addEventListener('focus', function() {
+        this.classList.add('glow');
+      });
+      
+      input.addEventListener('blur', function() {
+        this.classList.remove('glow');
+      });
+    });
+
+    // 🎭 Social Auth Buttons
+    document.querySelectorAll('.social-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const provider = this.classList.contains('google') ? 'Google' : 'Facebook';
+        showNotification(`${provider} authentication coming soon!`, 'info');
+      });
+    });
+
+    // 🔔 Notification Function
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.className = `notification notification-${type}`;
+      notification.innerHTML = `
+        <i class="fa-solid fa-${getNotificationIcon(type)}"></i>
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      `;
+
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-md);
+        padding: var(--spacing-sm) var(--spacing-md);
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        z-index: 10000;
+        animation: slideInRight 0.3s ease-out;
+        max-width: 300px;
+        color: var(--text-primary);
+      `;
+
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        if (notification.parentElement) {
+          notification.remove();
+        }
+      }, 5000);
+    }
+
+    function getNotificationIcon(type) {
+      const icons = {
+        success: 'check-circle',
+        error: 'exclamation-circle',
+        warning: 'exclamation-triangle',
+        info: 'info-circle'
+      };
+      return icons[type] || 'info-circle';
+    }
+  </script>
+</body>
+</html> 
